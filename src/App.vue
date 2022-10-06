@@ -25,6 +25,6 @@ import Weather from './components/weather.vue';
     color: #fff;
     font-size: 48px;
     font-weight: 700;
-    text-shadow: 0 0 32px rgba(110, 106, 106, 0.5);
+    text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
   }
 </style>

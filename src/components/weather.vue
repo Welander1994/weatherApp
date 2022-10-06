@@ -23,6 +23,12 @@
             </div>
 
         </div>
+        <div class="weather-wrap" v-else>
+                <div class="location-box">
+                <div class="location">City not found</div>
+                <div class="date">{{ dateBuilder() }}</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -118,7 +124,7 @@ export default {
     font-weight: 500;
     text-align: center;
     text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
-
+    
 }
 
 .location-box .date {
@@ -142,7 +148,7 @@ export default {
     color: #fff;
     font-size: 102px;
     font-weight: 700;
-    text-shadow: 0 0 32px rgba(110, 106, 106, 0.5);
+    text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
     
 }
 
@@ -150,6 +156,6 @@ export default {
     color: #fff;
     font-size: 48px;
     font-weight: 700;
-    text-shadow: 0 0 32px rgba(110, 106, 106, 0.5);
+    text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
 }
 </style>
