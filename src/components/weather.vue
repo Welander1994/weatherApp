@@ -19,7 +19,7 @@
 
             <div class="weather-box">
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
-                <div class="weather">{{ weather.weather[0].main }}</div>
+                <div class="weather"> {{ weather.weather[0].main }} </div>
             </div>
 
         </div>
@@ -51,8 +51,6 @@ export default {
                 .then(res => {
                     return res.json();
                 }).then(this.setResults);
-
-                
             }
         },
         setResults(results) {
@@ -77,8 +75,6 @@ export default {
     },
 
     setup () {
-        
-
         return {}
     }
 }
