@@ -1,14 +1,60 @@
+<script setup>
+import { ref } from 'vue';
+
+               const api_key = 'f114c1d8edfe049f0d1de15551609120';
+               const url_base = 'https://api.openweathermap.org/data/2.5/';
+               let query = ref(''); 
+               let weather = ref({});
+ 
+    
+        
+             async function fetchWeather() {
+
+                    await fetch(`${url_base}weather?q=${query.value}&units=metric&APPID=${api_key}`)
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(setResults);
+                
+            };
+
+            function setResults(results) {
+                weather.value = results;
+                //console.log(results);
+            };
+    
+            function dateBuilder() {
+                let d = new Date();
+    
+                let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+                let day = days[d.getDay()];
+                let date = d.getDate();
+                let month = months[d.getMonth()];
+                let year = d.getFullYear();
+                return `${day} ${date} ${month} ${year}`;
+            }
+    
+            
+        
+    
+
+    </script>
+
 <template>
     <div>
+        
         <div class="search-box">
             <input 
             type="text" 
             class="search-bar" 
             placeholder="search..."
             v-model="query"
-            @keypress="fetchWeather"
+            @keypress.enter.prevent="fetchWeather"
             >
         </div>
+        
 
         <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
             <div class="location-box">
@@ -19,7 +65,13 @@
 
             <div class="weather-box">
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
-                <div class="weather"> {{ weather.weather[0].main }} </div>
+                <div class="weather"> {{ weather.weather[0].description }}</div>
+                <div class="wind">
+
+                     {{ weather.wind.speed }}  
+                     <span v-if="weather.wind.speed > 5" class="material-symbols-outlined shake"> air </span>
+                     <span v-if="weather.wind.speed < 5" class="material-symbols-outlined shake"> airware </span>
+                </div>
             </div>
 
         </div>
@@ -32,54 +84,6 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'app',
-    data() {
-        return {
-            api_key: 'f114c1d8edfe049f0d1de15551609120',
-            url_base: 'https://api.openweathermap.org/data/2.5/',
-            query: '',
-            weather: {}
-        }
-    },
-
-    methods: {
-        fetchWeather(e) {
-            if(e.key == "Enter") {
-                fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
-                .then(res => {
-                    return res.json();
-                }).then(this.setResults);
-            }
-        },
-        setResults(results) {
-            this.weather = results;
-            console.log(results);
-        },
-
-        dateBuilder() {
-            let d = new Date();
-
-            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-            let day = days[d.getDay()];
-            let date = d.getDate();
-            let month = months[d.getMonth()];
-            let year = d.getFullYear();
-            return `${day} ${date} ${month} ${year}`;
-        }
-
-        
-    },
-
-    setup () {
-        return {}
-    }
-}
-</script>
-
 <style lang="css" scoped>
 * {
     margin: 0;
@@ -90,17 +94,17 @@ export default {
 
 .search-box .search-bar {
     display: block;
-    widows: 100%;
+    max-width: 90%;
     padding: 15px;
-    margin: 15px 0;
-
-    color: #8f8f8f;
+    margin: 15px auto;
+    
+    color:  #181818;
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
 
     appearance: none;
-    border: none;
+    border: 1px solid #181818 ;
 
     box-shadow: 0 0 16px rgba(110, 106, 106, 0.25);
     transition: .5s ease-in-out;
@@ -153,5 +157,41 @@ export default {
     font-size: 48px;
     font-weight: 700;
     text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
+}
+
+.weather-box .wind {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 300;
+    text-shadow: 1px 3px rgb(0 0 0 / 25%);
+    font-style: italic;
+}
+
+.shake {
+  animation: shake 3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 </style>
