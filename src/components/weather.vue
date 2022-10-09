@@ -1,12 +1,15 @@
 <script setup>
 import { ref } from 'vue';
 import Rain from './rain.vue';
+import Snow from './snow.vue';
 
                const api_key = 'f114c1d8edfe049f0d1de15551609120';
                const url_base = 'https://api.openweathermap.org/data/2.5/';
                let query = ref(''); 
                let weather = ref({});
-               var itsRaining = ref(false);
+
+               let Raining = ref(false);
+               let Snowing = ref(false);
                
         
              async function fetchWeather() {
@@ -23,9 +26,17 @@ import Rain from './rain.vue';
                 weather.value = results;     
                 console.log(results); 
                 if(results.weather[0].main == 'Rain') {
-                    itsRaining.value = true;
-                    
-                }       
+                    Raining.value = true;
+                } 
+                
+                switch(results.weather[0].main) {
+                    case 'Rain':
+                        Raining.value = true;
+                        break; 
+                    case 'Snow':
+                        Snowing.value = true;
+                        break;
+                }
             };
 
  
@@ -75,8 +86,7 @@ import Rain from './rain.vue';
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
                 <div class="weather"> {{ weather.weather[0].description }}</div>
                 <div class="wind">
-                    <span v-if="weather.wind.speed > 5" class="material-symbols-outlined"> air </span>
-                    <span v-if="weather.wind.speed < 5" class="material-symbols-outlined"> airware </span>
+                    <span class="material-symbols-outlined"> air </span>
                     {{ weather.wind.speed }}  
                 </div>
             </div>           
@@ -87,8 +97,12 @@ import Rain from './rain.vue';
                 <div class="date">{{ dateBuilder() }}</div>
             </div>
         </div>
-        <div v-if="itsRaining">
+        <div v-if="Raining">
             <rain />    
+        </div>
+
+        <div v-if="Snowing">
+            <Snow />
         </div>
     </div>
 </template>

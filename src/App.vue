@@ -1,5 +1,6 @@
 <script setup>
 import Weather from './components/weather.vue';
+import Snow from './components/snow.vue';
 
 </script>
 
