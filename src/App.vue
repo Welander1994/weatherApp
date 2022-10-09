@@ -1,8 +1,10 @@
 <script setup>
 import Weather from './components/weather.vue';
+
 </script>
 
 <template>
+ 
   <header>
       <h1>Weather App</h1>
   </header>

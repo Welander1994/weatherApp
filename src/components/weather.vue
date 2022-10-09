@@ -1,12 +1,13 @@
 <script setup>
 import { ref } from 'vue';
+import Rain from './rain.vue';
 
                const api_key = 'f114c1d8edfe049f0d1de15551609120';
                const url_base = 'https://api.openweathermap.org/data/2.5/';
                let query = ref(''); 
                let weather = ref({});
- 
-    
+               var itsRaining = ref(false);
+               
         
              async function fetchWeather() {
 
@@ -19,9 +20,15 @@ import { ref } from 'vue';
             };
 
             function setResults(results) {
-                weather.value = results;
-                //console.log(results);
+                weather.value = results;     
+                console.log(results); 
+                if(results.weather[0].main == 'Rain') {
+                    itsRaining.value = true;
+                    
+                }       
             };
+
+ 
     
             function dateBuilder() {
                 let d = new Date();
@@ -37,26 +44,28 @@ import { ref } from 'vue';
             }
     
             
-        
-    
+            
+            
 
     </script>
 
 <template>
     <div>
-        
         <div class="search-box">
             <input 
             type="text" 
             class="search-bar" 
             placeholder="search..."
             v-model="query"
-            @keypress.enter.prevent="fetchWeather"
+            @keydown.enter.prevent="fetchWeather"
+            
             >
+            <span class="material-symbols-outlined" @click="fetchWeather">search</span>
         </div>
         
 
-        <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
+        <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
+
             <div class="location-box">
                 <div class="location">{{ weather.name }}</div>
                 <div class="date">{{ dateBuilder() }}</div>
@@ -67,19 +76,19 @@ import { ref } from 'vue';
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
                 <div class="weather"> {{ weather.weather[0].description }}</div>
                 <div class="wind">
-
-                     {{ weather.wind.speed }}  
-                     <span v-if="weather.wind.speed > 5" class="material-symbols-outlined shake"> air </span>
-                     <span v-if="weather.wind.speed < 5" class="material-symbols-outlined shake"> airware </span>
+                    <span v-if="weather.wind.speed > 5" class="material-symbols-outlined"> air </span>
+                    <span v-if="weather.wind.speed < 5" class="material-symbols-outlined"> airware </span>
+                    {{ weather.wind.speed }}  
                 </div>
-            </div>
-
+            </div>           
         </div>
         <div class="weather-wrap" v-else>
                 <div class="location-box">
-                <div class="location">City not found</div>
                 <div class="date">{{ dateBuilder() }}</div>
             </div>
+        </div>
+        <div v-if="itsRaining">
+            <rain />    
         </div>
     </div>
 </template>
@@ -92,11 +101,24 @@ import { ref } from 'vue';
     user-select: none; 
 }
 
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box span {
+    font-size: 2rem;
+    padding-left: 2vw;
+}
+
 .search-box .search-bar {
     display: block;
     max-width: 90%;
     padding: 15px;
     margin: 15px auto;
+    
     
     color:  #181818;
     font-size: 20px;
@@ -154,44 +176,26 @@ import { ref } from 'vue';
 
 .weather-box .weather {
     color: #fff;
-    font-size: 48px;
+    font-size: 32px;
     font-weight: 700;
+    text-transform: capitalize;
     text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
 }
 
 .weather-box .wind {
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 300;
     text-shadow: 1px 3px rgb(0 0 0 / 25%);
     font-style: italic;
 }
 
-.shake {
-  animation: shake 3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  transform: translate3d(0, 0, 0);
+.weather-box .wind span{
+    font-size: 30px;
+    transform: rotate(-10deg);
 }
 
-@keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-1px, 0, 0);
-  }
 
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
-  }
 
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
-  }
 
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
-  }
-}
 </style>
