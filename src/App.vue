@@ -1,8 +1,10 @@
 <script setup>
 import Weather from './components/weather.vue';
+
 </script>
 
 <template>
+ 
   <header>
       <h1>Weather App</h1>
   </header>
@@ -23,7 +25,7 @@ import Weather from './components/weather.vue';
   h1 {
     text-align: center;
     color: #fff;
-    font-size: 48px;
+    font-size: 3rem;
     font-weight: 700;
     text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
   }

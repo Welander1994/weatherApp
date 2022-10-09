@@ -1,3 +1,54 @@
+<script setup>
+import { ref } from 'vue';
+import Rain from './rain.vue';
+
+               const api_key = 'f114c1d8edfe049f0d1de15551609120';
+               const url_base = 'https://api.openweathermap.org/data/2.5/';
+               let query = ref(''); 
+               let weather = ref({});
+               var itsRaining = ref(false);
+               
+        
+             async function fetchWeather() {
+
+                    await fetch(`${url_base}weather?q=${query.value}&units=metric&APPID=${api_key}`)
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(setResults);
+                
+            };
+
+            function setResults(results) {
+                weather.value = results;     
+                console.log(results); 
+                if(results.weather[0].main == 'Rain') {
+                    itsRaining.value = true;
+                    
+                }       
+            };
+
+ 
+    
+            function dateBuilder() {
+                let d = new Date();
+    
+                let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+                let day = days[d.getDay()];
+                let date = d.getDate();
+                let month = months[d.getMonth()];
+                let year = d.getFullYear();
+                return `${day} ${date} ${month} ${year}`;
+            }
+    
+            
+            
+            
+
+    </script>
+
 <template>
     <div>
         <div class="search-box">
@@ -6,11 +57,14 @@
             class="search-bar" 
             placeholder="search..."
             v-model="query"
-            @keypress="fetchWeather"
+            @keydown.enter.prevent="fetchWeather"
+            
             >
+            <span class="material-symbols-outlined" @click="fetchWeather">search</span>
         </div>
+        
 
-        <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
+        <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
 
             <div class="location-box">
                 <div class="location">{{ weather.name }}</div>
@@ -19,66 +73,25 @@
         
             <div class="weather-box">
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
-                <div class="weather"> {{ weather.weather[0].main }} </div>
-            </div>
-
+                <div class="weather"> {{ weather.weather[0].description }}</div>
+                <div class="wind">
+                    <span v-if="weather.wind.speed > 5" class="material-symbols-outlined"> air </span>
+                    <span v-if="weather.wind.speed < 5" class="material-symbols-outlined"> airware </span>
+                    {{ weather.wind.speed }}  
+                </div>
+            </div>           
         </div>
         <div class="weather-wrap" v-else>
-            <div class="location-box">
+                <div class="location-box">
                 <div class="location">City not found</div>
                 <div class="date">{{ dateBuilder() }}</div>
             </div>
         </div>
+        <div v-if="itsRaining">
+            <rain />    
+        </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'app',
-    data() {
-        return {
-            api_key: 'f114c1d8edfe049f0d1de15551609120',
-            url_base: 'https://api.openweathermap.org/data/2.5/',
-            query: '',
-            weather: {}
-        }
-    },
-
-    methods: {
-        fetchWeather(e) {
-            if(e.key == "Enter") {
-                fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
-                .then(res => {
-                    return res.json();
-                }).then(this.setResults);
-            }
-        },
-        setResults(results) {
-            this.weather = results;
-            console.log(results);
-        },
-
-        dateBuilder() {
-            let d = new Date();
-
-            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-            let day = days[d.getDay()];
-            let date = d.getDate();
-            let month = months[d.getMonth()];
-            let year = d.getFullYear();
-            return `${day} ${date} ${month} ${year}`;
-        }
-
-        
-    },
-
-    setup () {
-        return {}
-    }
-}
-</script>
 
 <style lang="css" scoped>
 * {
@@ -88,19 +101,32 @@ export default {
     user-select: none; 
 }
 
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box span {
+    font-size: 2rem;
+    padding-left: 2vw;
+}
+
 .search-box .search-bar {
     display: block;
-    widows: 100%;
+    max-width: 90%;
     padding: 15px;
-    margin: 15px 0;
-
-    color: #8f8f8f;
+    margin: 15px auto;
+    
+    
+    color:  #181818;
     font-size: 20px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
 
     appearance: none;
-    border: none;
+    border: 1px solid #181818 ;
 
     box-shadow: 0 0 16px rgba(110, 106, 106, 0.25);
     transition: .5s ease-in-out;
@@ -150,8 +176,26 @@ export default {
 
 .weather-box .weather {
     color: #fff;
-    font-size: 48px;
+    font-size: 32px;
     font-weight: 700;
+    text-transform: capitalize;
     text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
 }
+
+.weather-box .wind {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 300;
+    text-shadow: 1px 3px rgb(0 0 0 / 25%);
+    font-style: italic;
+}
+
+.weather-box .wind span{
+    font-size: 30px;
+    transform: rotate(-10deg);
+}
+
+
+
+
 </style>
