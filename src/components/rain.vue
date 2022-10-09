@@ -1,5 +1,5 @@
 <script setup>
-    (function(){
+(function () {
 
 })();
 </script>
@@ -43,7 +43,7 @@
 
 
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 * {
     position: fixed;
     top: 0;
@@ -57,7 +57,7 @@
     display: flex;
 }
 
-.rain { 
+.rain {
     position: relative;
     display: inline-flex;
     z-index: 1;
@@ -73,31 +73,31 @@
     height: 40px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
     transform-origin: bottom;
-    animation: rain 1s linear infinite;
+    animation: rain 100s linear infinite;
     animation-duration: calc(15s / var(--i));
 }
 
-@keyframes rain 
-{
-    0%
-    {
+
+
+@keyframes rain {
+    0% {
         transform: translateY(0) scale(1);
         border-radius: 50%;
     }
-    90%
-    {
+
+    90% {
         transform: translateY(85vh) scale(1);
-        
+
     }
-    95%
-    {
+
+    95% {
         transform: translateY(85vh) scalex(7) scaleY(-.1);
         border-radius: 50%;
         opacity: 100%;
     }
-    100%
-    {
-        
+
+    100% {
+
         transform: translateY(85vh) scalex(7) scaleY(-.2);
         border-radius: 50%;
         opacity: 0%;
