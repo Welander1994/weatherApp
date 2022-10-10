@@ -13,25 +13,27 @@
 * {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: -10%;
+    width: 120%;
     height: 110vh;
     z-index: -99;
-    filter: blur(70px);
+    filter: blur(100px);
 }
 
 .mist {
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5));
+    opacity: 20%;
     clip-path: polygon(29% 61.3%, 71.3% 38.5%, 100% 50%, 100% 100%, 0% 100%, 0% 42.3%);
-    animation: mist2 10s ease-in-out infinite;
+    animation: mist 10s ease-in-out infinite;
     z-index: -50;
 }
 
 .mist2 {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+    opacity: 20%;
     clip-path: polygon(29% 61.3%, 71.3% 38.5%, 100% 50%, 100% 100%, 0% 100%, 0% 42.3%);
     animation: mist 8s ease-in-out infinite;
-    z-index: -20;
+    z-index: -70;
 }
 
 @keyframes mist {
@@ -47,6 +49,8 @@
         clip-path: polygon(29% 61.3%, 71.3% 38.5%, 100% 50%, 100% 100%, 0% 100%, 0% 42.3%);
     }
 }
+
+
 
 
 </style>

@@ -25,9 +25,6 @@ async function fetchWeather() {
 function setResults(results) {
     weather.value = results;
     console.log(results);
-    if (results.weather[0].main == 'Rain') {
-        Raining.value = true;
-    }
 
     switch (results.weather[0].main) {
         case 'Rain':
