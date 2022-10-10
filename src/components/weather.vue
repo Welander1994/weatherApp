@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import Rain from './rain.vue';
 import Snow from './snow.vue';
 import Mist from './mist.vue';
-import Clouds from './clouds.vue';
+import Thunder from './thunder.vue';
 
 
 const api_key = 'f114c1d8edfe049f0d1de15551609120';
@@ -14,7 +14,7 @@ let weather = ref({});
 let Raining = ref(false);
 let Snowing = ref(false);
 let Misty = ref(false);
-let Cloudy = ref(false);
+let Thundering = ref(false);
 
 
 async function fetchWeather() {
@@ -41,8 +41,11 @@ function setResults(results) {
         case 'Mist':
             Misty.value = true;
             break;
-        case 'Clouds':
-            Cloudy.value = true;
+        case 'Fog':
+            Misty.value = true;
+            break;
+        case 'Thunderstorm':
+            Thundering.value = true;
             break;
     }
 };
@@ -112,8 +115,8 @@ function dateBuilder() {
             <mist />
         </div>
 
-        <div v-if="Cloudy">
-            <Clouds />
+        <div v-if="Thundering">
+            <Thunder />
         </div>
 
     </div>

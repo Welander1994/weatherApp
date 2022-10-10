@@ -3,7 +3,7 @@ import Weather from './components/weather.vue';
 import Snow from './components/snow.vue';
 import Mist from './components/mist.vue';
 import Rain from './components/rain.vue';
-import Clouds from './components/clouds.vue';
+import Thunder from './components/thunder.vue';
 
 </script>
 
@@ -14,7 +14,7 @@ import Clouds from './components/clouds.vue';
   </header>
 
   <main>
-    <!--  <Clouds /> -->
+    <!--   <Thunder /> -->
     <!-- <Snow /> -->
     <!-- <Mist /> -->
     <!-- <Rain /> -->
