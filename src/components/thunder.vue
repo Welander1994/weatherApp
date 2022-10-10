@@ -1,18 +1,18 @@
 <script setup>
+import Rain from './rain.vue';
 </script>
 
 <template>
     <div class="thunder">
         <div class="flash"></div>
-
-
         <img src="../assets/lightning.svg" alt="ligthning">
-
+        <Rain />
     </div>
     <div class="test">
         <div class="cloud"></div>
-        <div class="clouds2"></div>
+        <div class="cloud2"></div>
     </div>
+
 </template>
 
 <style lang="scss" scoped>
@@ -22,47 +22,60 @@
     left: -10%;
     width: 120%;
     height: 105vh;
-    z-index: -99;
+    z-index: -9;
 
 }
 
 .test {
-    filter: blur(30px);
+    filter: blur(50px);
 
 }
 
+
+
 .thunder {
     img {
+        position: fixed;
+        top: -140px;
+        left: -100px;
+        transform: rotate(45deg);
+        animation: thunder 5s linear infinite;
 
-        transform: translateX(-18vw);
-        rotate: 45deg;
-        z-index: -45;
-        animation: thunder 4s linear infinite;
     }
 
     .flash {
         background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5));
-        animation: flash 4s linear infinite;
+        animation: flash 5s linear infinite;
     }
+}
 
+@media screen and (min-width: 992px) {
+    .thunder {
+        img {
+            width: 40vw;
+            transform: rotate(45deg);
+        }
+
+    }
 }
 
 
-
 .cloud {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5));
-    opacity: 80%;
+    /* background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5)); */
+
+    background-color: darkgray;
+    opacity: 100%;
     animation: cloud 8s ease-in-out infinite;
-    z-index: -50;
-    height: 80vh;
+    height: 60vh;
 
 }
 
 .cloud2 {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9));
-    opacity: 90%;
+    /* background: linear-gradient(to top, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0.5)); */
+    background-color: rgb(43, 43, 43);
+    opacity: 20%;
     animation: cloud 5s ease-in-out infinite;
-    z-index: -70;
+    height: 80vh;
 
 }
 

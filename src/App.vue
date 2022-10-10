@@ -11,10 +11,11 @@ import Thunder from './components/thunder.vue';
 
   <header>
     <h1>Weather App</h1>
+
   </header>
 
   <main>
-    <!--   <Thunder /> -->
+    <Thunder />
     <!-- <Snow /> -->
     <!-- <Mist /> -->
     <!-- <Rain /> -->
@@ -34,7 +35,7 @@ body {
 h1 {
   text-align: center;
   color: #fff;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
 }
