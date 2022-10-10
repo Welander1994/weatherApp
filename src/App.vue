@@ -1,6 +1,8 @@
 <script setup>
 import Weather from './components/weather.vue';
 import Snow from './components/snow.vue';
+import Mist from './components/mist.vue';
+import Rain from './components/rain.vue';
 
 </script>
 
@@ -11,6 +13,8 @@ import Snow from './components/snow.vue';
   </header>
 
   <main>
+    <Mist />
+    <!-- <Rain /> -->
     <Weather />
   </main>
 </template>

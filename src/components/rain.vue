@@ -1,7 +1,4 @@
 <script setup>
-(function () {
-
-})();
 </script>
 
 <template>
