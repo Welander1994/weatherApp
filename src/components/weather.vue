@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import Rain from './rain.vue';
 import Snow from './snow.vue';
+import Mist from './mist.vue';
+import Clouds from './clouds.vue';
+
 
 const api_key = 'f114c1d8edfe049f0d1de15551609120';
 const url_base = 'https://api.openweathermap.org/data/2.5/';
@@ -10,6 +13,8 @@ let weather = ref({});
 
 let Raining = ref(false);
 let Snowing = ref(false);
+let Misty = ref(false);
+let Cloudy = ref(false);
 
 
 async function fetchWeather() {
@@ -32,6 +37,12 @@ function setResults(results) {
             break;
         case 'Snow':
             Snowing.value = true;
+            break;
+        case 'Mist':
+            Misty.value = true;
+            break;
+        case 'Clouds':
+            Cloudy.value = true;
             break;
     }
 };
@@ -75,7 +86,7 @@ function dateBuilder() {
 
             <div class="weather-box">
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
-                <div class="weather"> {{ weather.weather[0].description }}</div>
+                <div class="weather"> {{ weather.weather[0].main }}</div>
                 <div class="wind">
                     <span class="material-symbols-outlined"> air </span>
                     {{ weather.wind.speed }}
@@ -88,6 +99,7 @@ function dateBuilder() {
                 <div class="date">{{ dateBuilder() }}</div>
             </div>
         </div>
+
         <div v-if="Raining">
             <rain />
         </div>
@@ -95,6 +107,15 @@ function dateBuilder() {
         <div v-if="Snowing">
             <Snow />
         </div>
+
+        <div v-if="Misty">
+            <mist />
+        </div>
+
+        <div v-if="Cloudy">
+            <Clouds />
+        </div>
+
     </div>
 </template>
 
@@ -131,7 +152,7 @@ function dateBuilder() {
     border-radius: 12px;
 
     appearance: none;
-    border: 1px solid #181818;
+    border: none;
 
     box-shadow: 0 0 16px rgba(110, 106, 106, 0.25);
     transition: .5s ease-in-out;
