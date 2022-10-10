@@ -35,7 +35,7 @@ body {
 h1 {
   text-align: center;
   color: #fff;
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   text-shadow: 0 0 32px rgba(110, 106, 106, 0.1);
 }
