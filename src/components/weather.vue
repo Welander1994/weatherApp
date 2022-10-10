@@ -128,7 +128,7 @@ function dateBuilder() {
     padding: 0;
     box-sizing: border-box;
     user-select: none;
-    font-family: 'Rokkitt', serif;
+
 }
 
 
@@ -152,6 +152,7 @@ function dateBuilder() {
 
     color: #181818;
     font-size: 20px;
+    font-family: 'Rokkitt', serif;
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
 
