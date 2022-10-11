@@ -152,7 +152,7 @@ function dateBuilder() {
 
     color: #181818;
     font-size: 20px;
-    font-family: 'Rokkitt', serif;
+    font-family: 'Raleway', sans-serif;
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
 
