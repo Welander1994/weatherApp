@@ -1,4 +1,6 @@
 <script setup>
+const props = defineProps(['intensity'])
+console.log(props.intensity)
 </script>
 
 <template>
@@ -69,7 +71,7 @@
         height: 40px;
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
         transform-origin: bottom;
-        animation: rain 1000s linear infinite;
+        animation: rain 10s linear infinite;
         animation-duration: calc(15s / var(--i));
     }
 }
