@@ -89,7 +89,7 @@ function dateBuilder() {
 
             <div class="weather-box">
                 <div class="temp">{{ Math.round(weather.main.temp) }}°</div>
-                <div class="weather"> {{ weather.weather[0].main }}</div>
+                <div class="weather"> {{ weather.weather[0].description }}</div>
                 <div class="wind">
                     <span class="material-symbols-outlined"> air </span>
                     {{ weather.wind.speed }}
