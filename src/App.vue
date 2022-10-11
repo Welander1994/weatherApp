@@ -15,7 +15,7 @@ import Thunder from './components/thunder.vue';
   </header>
 
   <main>
-    <Thunder />
+    <!--     <Thunder /> -->
     <!-- <Snow /> -->
     <!-- <Mist /> -->
     <!-- <Rain /> -->
