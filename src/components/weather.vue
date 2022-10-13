@@ -12,10 +12,6 @@ let query = ref('');
 let weather = ref({});
 
 let Raining = ref(false);
-const rainIntensity = {
-    802: 12,
-
-}
 let Snowing = ref(false);
 let Misty = ref(false);
 let Thundering = ref(false);
@@ -34,7 +30,6 @@ async function fetchWeather() {
 function setResults(results) {
     weather.value = results;
     console.log(results);
-    console.log(rainIntensity[results.weather[0].id])
 
     switch (results.weather[0].main) {
         case 'Rain':
@@ -109,7 +104,7 @@ function dateBuilder() {
         </div>
 
         <div v-if="Raining">
-            <rain :intensity="rainIntensity[results.weather[0].id]" />
+            <rain />
         </div>
 
         <div v-if="Snowing">
