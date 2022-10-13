@@ -15,7 +15,7 @@ import Rain from './components/rain.vue';
   <main>
     <!-- <Snow /> -->
     <!-- <Mist /> -->
-    <!-- <Rain /> -->
+    <Rain />
     <Weather />
   </main>
 </template>
