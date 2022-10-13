@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import Rain from './rain.vue';
 import Snow from './snow.vue';
+import Mist from './mist.vue';
+import Thunder from './thunder.vue';
+
 
 const api_key = 'f114c1d8edfe049f0d1de15551609120';
 const url_base = 'https://api.openweathermap.org/data/2.5/';
@@ -9,7 +12,13 @@ let query = ref('');
 let weather = ref({});
 
 let Raining = ref(false);
+const rainIntensity = {
+    802: 12,
+
+}
 let Snowing = ref(false);
+let Misty = ref(false);
+let Thundering = ref(false);
 
 
 async function fetchWeather() {
@@ -25,6 +34,7 @@ async function fetchWeather() {
 function setResults(results) {
     weather.value = results;
     console.log(results);
+    console.log(rainIntensity[results.weather[0].id])
 
     switch (results.weather[0].main) {
         case 'Rain':
@@ -32,6 +42,15 @@ function setResults(results) {
             break;
         case 'Snow':
             Snowing.value = true;
+            break;
+        case 'Mist':
+            Misty.value = true;
+            break;
+        case 'Fog':
+            Misty.value = true;
+            break;
+        case 'Thunderstorm':
+            Thundering.value = true;
             break;
     }
 };
@@ -88,13 +107,23 @@ function dateBuilder() {
                 <div class="date">{{ dateBuilder() }}</div>
             </div>
         </div>
+
         <div v-if="Raining">
-            <rain />
+            <rain :intensity="rainIntensity[results.weather[0].id]" />
         </div>
 
         <div v-if="Snowing">
             <Snow />
         </div>
+
+        <div v-if="Misty">
+            <mist />
+        </div>
+
+        <div v-if="Thundering">
+            <Thunder />
+        </div>
+
     </div>
 </template>
 
@@ -104,6 +133,7 @@ function dateBuilder() {
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+
 }
 
 
@@ -127,11 +157,12 @@ function dateBuilder() {
 
     color: #181818;
     font-size: 20px;
+    font-family: 'Raleway', sans-serif;
     background-color: rgba(255, 255, 255, 0.25);
     border-radius: 12px;
 
     appearance: none;
-    border: 1px solid #181818;
+    border: none;
 
     box-shadow: 0 0 16px rgba(110, 106, 106, 0.25);
     transition: .5s ease-in-out;

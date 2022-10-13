@@ -1,4 +1,6 @@
 <script setup>
+const props = defineProps(['intensity'])
+console.log(props.intensity)
 </script>
 
 <template>
@@ -61,7 +63,6 @@
     width: 100vw;
     display: flex;
     justify-content: space-around;
-}
 
 .rain span {
     position: relative;
@@ -70,11 +71,9 @@
     height: 40px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
     transform-origin: bottom;
-    animation: rain 1s linear infinite;
-    animation-delay: calc(10s / var(--i));
-    /* animation-duration: calc(15s / var(--i)); */
+    animation: rain 100s linear infinite;
+    animation-duration: calc(15s / var(--i));
 }
-
 
 
 @keyframes rain {
