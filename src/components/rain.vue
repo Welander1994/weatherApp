@@ -69,8 +69,8 @@
         height: 40px;
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
         transform-origin: bottom;
-        animation: rain 10s linear infinite;
-        animation-duration: calc(15s / var(--i));
+        animation: rain 1s linear infinite;
+        animation-delay: calc(50s / var(--i));
     }
 }
 
