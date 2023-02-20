@@ -18,6 +18,5 @@ jobs:
           ONE_DOMAIN_NAME: we-lander.dk
           ONE_SSH_KEY_PUBLIC: ${{ secrets.ONE_COM_SSH_KEY}}
           ONE_SSH_KEY_PRIVATE: ${{ secrets.ONE_COM_SSH_PRIVATE_KEY}}
-          TPO_SRC_PATH: ""
+          TPO_SRC_PATH: "dist"
           TPO_PATH: ""
-          
