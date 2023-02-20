@@ -16,11 +16,7 @@ jobs:
       uses: rostimelk/one.com-deployer@master
       env:
           ONE_DOMAIN_NAME: we-lander.dk
-          ONE_SSH_KEY_PUBLIC: AAAAC3NzaC1lZDI1NTE5AAAAIAr3OYcJcTp61N8zXpVBbhiGoUOPorLq8zO0zTwGMsTm
-          ONE_SSH_KEY_PRIVATE: 2 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-          3QyNTUxOQAAACAK9zmHCXE6etTfM16VQW4YhqFDj6Ky6vMztM08BjLE5gAAAKAdi+Z6HYvm
-          4 egAAAAtzc2gtZWQyNTUxOQAAACAK9zmHCXE6etTfM16VQW4YhqFDj6Ky6vMztM08BjLE5g
-          5 AAAEAAITmssSKA/XH4tyy1GWYh7fIFnRf0yrTi3oTjyRL7hwr3OYcJcTp61N8zXpVBbhiG
-          6 oUOPorLq8zO0zTwGMsTmAAAAG2phY29id2VsYWRuZXIxOTk0QGdtYWlsLmNvbQEC
+          ONE_SSH_KEY_PUBLIC: ${{ secrets.ONE_COM_SSH_KEY}}
+          ONE_SSH_KEY_PRIVATE: ${{ secrets.ONE_COM_SSH_PRIVATE_KEY}}
           TPO_SRC_PATH: ""
           TPO_PATH: ""
